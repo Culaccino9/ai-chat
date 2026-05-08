@@ -1,1 +1,42 @@
-<view class="container"><view class="card"><view class="title">{{item.title}}</view><view class="muted">{{item.description}}</view><view style="margin-top:20rpx"><text class="tag">{{item.industry}}</text><text class="tag">{{item.jobFamily}}</text><text class="tag">难度{{item.difficulty}}</text></view><button class="btn" bindtap="start">开始陪练</button></view><view class="card"><view style="font-weight:700">评分维度</view><block wx:for="{{dimensions}}" wx:key="code"><view class="muted">{{item.name}} · 权重 {{item.weight}}</view></block></view></view>
+<view class="detail-page">
+  <view class="top-line">
+    <view class="history">☰ 历史会话</view>
+    <view class="new-chat" bindtap="newChat" wx:if="{{activeTopic}}">⊕ 新会话</view>
+  </view>
+
+  <view wx:if="{{!activeTopic}}" class="topic-home">
+    <view class="intro-title">Hi，我是销售话术练习小助手</view>
+    <view class="intro-subtitle">我可以帮助你做以下事情：</view>
+
+    <block wx:for="{{topics}}" wx:key="key">
+      <view class="topic-card" bindtap="selectTopic" data-key="{{item.key}}">
+        <view class="topic-left">
+          <text class="topic-icon">{{item.icon}}</text>
+          <text>{{item.title}}</text>
+        </view>
+        <view class="topic-arrow">›</view>
+      </view>
+    </block>
+  </view>
+
+  <scroll-view wx:else scroll-y class="script-scroll">
+    <view class="active-topic">
+      <text class="active-icon">{{activeTopic.icon}}</text>
+      <text>{{activeTopic.title}}</text>
+    </view>
+
+    <view class="script-title">您可以试着说说这些内容：</view>
+    <block wx:for="{{activeTopic.sections}}" wx:key="title">
+      <view class="script-section">
+        <view class="section-title">{{item.title}}</view>
+        <view class="section-tips">{{item.tips}}</view>
+        <view class="section-script">{{item.script}}</view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="text-dock">
+    <input class="text-input" value="{{input}}" bindinput="onInput" placeholder="输入您的话术，智能陪练将立即为您分析和优化" confirm-type="send" bindconfirm="start" />
+    <button class="send-btn" bindtap="start">发送</button>
+  </view>
+</view>

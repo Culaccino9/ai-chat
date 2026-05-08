@@ -1,5 +1,27 @@
 {
-  "pages": ["pages/login/index", "pages/home/index", "pages/scenarios/index", "pages/scenario-detail/index", "pages/practice/index", "pages/report/index", "pages/leaderboard/index", "pages/profile/index"],
-  "window": { "navigationBarTitleText": "AI 陪练", "navigationBarBackgroundColor": "#1f2937", "navigationBarTextStyle": "white" },
-  "tabBar": { "color": "#666", "selectedColor": "#1677ff", "list": [ { "pagePath": "pages/home/index", "text": "首页" }, { "pagePath": "pages/scenarios/index", "text": "场景" }, { "pagePath": "pages/leaderboard/index", "text": "排行" }, { "pagePath": "pages/profile/index", "text": "我的" } ] }
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/scenarios/index",
+    "pages/scenario-detail/index",
+    "pages/practice/index",
+    "pages/report/index",
+    "pages/leaderboard/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "AI 陪练",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#111111",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "知识卡片" },
+      { "pagePath": "pages/scenarios/index", "text": "智能陪练" },
+      { "pagePath": "pages/leaderboard/index", "text": "排行" },
+      { "pagePath": "pages/profile/index", "text": "我的" }
+    ]
+  }
 }

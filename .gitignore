@@ -9,3 +9,4 @@ coverage
 server/prisma/dev.db
 server/prisma/dev.db-journal
 mini-program/miniprogram_npm
+node_modules

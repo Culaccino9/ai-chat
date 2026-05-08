@@ -1,0 +1,92 @@
+page {
+  background: linear-gradient(135deg, #fbf3dc 0%, #d9eaff 44%, #fde7e2 100%);
+}
+
+.coach-page {
+  min-height: 100vh;
+  padding: 44rpx 26rpx 140rpx;
+  box-sizing: border-box;
+}
+
+.hero {
+  padding: 8rpx 12rpx 28rpx;
+}
+
+.nav-title {
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 60rpx;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 22rpx;
+  font-size: 34rpx;
+  color: #2f3237;
+}
+
+.bot {
+  width: 112rpx;
+  height: 82rpx;
+  border-radius: 34rpx;
+  padding: 10rpx;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #ff92eb, #5d8dff);
+  box-shadow: 0 12rpx 30rpx rgba(76, 111, 255, .25);
+}
+
+.bot-face {
+  height: 100%;
+  border-radius: 26rpx;
+  background: #1674ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18rpx;
+  color: #fff;
+}
+
+.bot-eye {
+  width: 10rpx;
+  height: 18rpx;
+  border-radius: 999rpx;
+  background: #fff;
+}
+
+.bot-smile {
+  width: 22rpx;
+  height: 12rpx;
+  border-bottom: 4rpx solid #fff;
+  border-radius: 0 0 20rpx 20rpx;
+}
+
+.scenario-card {
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 34rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.scenario-title {
+  font-size: 32rpx;
+  line-height: 1.35;
+  color: #2f3237;
+  font-weight: 800;
+  margin-bottom: 28rpx;
+}
+
+.scenario-meta {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  color: #686b70;
+  font-size: 26rpx;
+}
+
+.people-icon {
+  color: #777;
+  font-size: 28rpx;
+}

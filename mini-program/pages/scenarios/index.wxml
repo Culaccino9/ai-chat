@@ -1,1 +1,27 @@
-<view class="container"><view class="title">场景库</view><block wx:for="{{items}}" wx:key="id"><view class="card" bindtap="open" data-id="{{item.id}}"><view style="font-weight:700">{{item.title}}</view><view class="muted">{{item.description}}</view><view><text class="tag">难度{{item.difficulty}}</text><text class="tag">{{item.estMinutes}}分钟</text></view></view></block></view>
+<view class="coach-page">
+  <view class="hero">
+    <view class="nav-title">智能陪练</view>
+    <view class="greeting">
+      <view class="bot">
+        <view class="bot-face">
+          <view class="bot-eye"></view>
+          <view class="bot-smile"></view>
+          <view class="bot-eye"></view>
+        </view>
+      </view>
+      <text>Hi，我可以帮助你训练话术！</text>
+    </view>
+  </view>
+
+  <view class="scenario-list">
+    <block wx:for="{{items}}" wx:key="id">
+      <view class="scenario-card" bindtap="open" data-id="{{item.id}}" data-title="{{item.title}}">
+        <view class="scenario-title">{{item.title}}</view>
+        <view class="scenario-meta">
+          <text class="people-icon">♙</text>
+          <text>{{item.practiceCount || 0}}次陪练</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

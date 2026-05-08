@@ -1,1 +1,24 @@
-<view class="container"><view class="card"><view class="title">练习房间</view><view class="muted">实时文字陪练，大模型会分析你的回答并给出提示</view></view><scroll-view scroll-y style="height:760rpx"><block wx:for="{{messages}}" wx:key="idx"><view class="card"><view style="font-weight:700">{{item.speaker}}</view><view>{{item.content}}</view><view wx:if="{{item.quality}}" class="muted">得分：{{item.quality.score}}｜等级：{{item.quality.level}}</view></view></block></scroll-view><view class="card"><input placeholder="请输入你的回答" value="{{input}}" bindinput="onInput" /><button class="btn" bindtap="send">发送</button><button bindtap="finish">结束并生成报告</button></view></view>
+<view class="practice-page">
+  <view class="practice-header">
+    <view class="practice-title">{{title}}</view>
+    <view class="practice-topic">{{topic}}</view>
+  </view>
+
+  <scroll-view scroll-y class="message-list" scroll-into-view="bottom-anchor">
+    <block wx:for="{{messages}}" wx:key="index">
+      <view class="message {{item.speaker === '我' ? 'mine' : 'assistant'}}">
+        <view class="speaker">{{item.speaker}}</view>
+        <view class="bubble">{{item.content}}</view>
+        <view wx:if="{{item.quality}}" class="score">得分 {{item.quality.score}} · {{item.quality.level}}</view>
+      </view>
+    </block>
+    <view wx:if="{{sending}}" class="typing">陪练助手正在分析...</view>
+    <view id="bottom-anchor"></view>
+  </scroll-view>
+
+  <view class="text-dock">
+    <input class="text-input" value="{{input}}" bindinput="onInput" placeholder="输入您的话术" confirm-type="send" bindconfirm="send" />
+    <button class="send-btn" bindtap="send">发送</button>
+    <button class="finish-btn" bindtap="finish">结束</button>
+  </view>
+</view>
