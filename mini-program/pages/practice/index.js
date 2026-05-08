@@ -28,7 +28,7 @@ Page({
       pendingText: draft,
       mockMode: !q.sessionId,
       messages: [
-        { speaker: '陪练助手', content: `我们开始「${topic}」练习。请用文字输入你的话术，我会帮你分析表达、结构和下一步优化。` }
+        { speaker: '陪练助手', className: 'assistant', content: `我们开始「${topic}」练习。请用文字输入你的话术，我会帮你分析表达、结构和下一步优化。` }
       ]
     });
     wx.setNavigationBarTitle({ title: topic });
@@ -52,7 +52,7 @@ Page({
       const speaker = msg.type === 'ai_text' ? '陪练助手' : msg.type === 'live_hint' ? '提示' : '系统';
       this.setData({
         sending: msg.type === 'thinking',
-        messages: [...this.data.messages, { speaker, content: msg.content, quality: msg.quality || null }]
+        messages: [...this.data.messages, { speaker, className: speaker === '陪练助手' ? 'assistant' : 'assistant', content: msg.content, quality: msg.quality || null }]
       });
     });
     wx.onSocketError(() => {
@@ -84,7 +84,7 @@ Page({
 
   sendText(content) {
     this.setData({
-      messages: [...this.data.messages, { speaker: '我', content }],
+      messages: [...this.data.messages, { speaker: '我', className: 'mine', content }],
       sending: true
     });
 
@@ -101,8 +101,8 @@ Page({
     this.setData({
       messages: [
         ...this.data.messages,
-        { speaker: '我', content },
-        { speaker: '陪练助手', content: feedback, quality: { score: 82, level: '良好' } }
+        { speaker: '我', className: 'mine', content },
+        { speaker: '陪练助手', className: 'assistant', content: feedback, quality: { score: 82, level: '良好' } }
       ],
       sending: false
     });

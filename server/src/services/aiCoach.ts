@@ -5,6 +5,8 @@ type Msg = { speaker: string; content: string };
 
 type DialogueContext = {
   scenarioTitle?: string;
+  categoryTitle?: string;
+  categoryPrompt?: string;
   personaName?: string;
   personaDescription?: string;
   rubricDimensionsJson?: string;
@@ -123,6 +125,8 @@ export async function buildAiReply(messages: Msg[], context: DialogueContext = {
         role: 'user',
         content: JSON.stringify({
           scenarioTitle: context.scenarioTitle || 'AI 陪练场景',
+          categoryTitle: context.categoryTitle || '',
+          categoryPrompt: context.categoryPrompt || '',
           personaName: context.personaName || '客户',
           personaDescription: context.personaDescription || '',
           rubricDimensions: parseJson(context.rubricDimensionsJson, []),
@@ -191,6 +195,8 @@ export async function evaluateSession(
         role: 'user',
         content: JSON.stringify({
           scenarioTitle: context.scenarioTitle || 'AI 陪练场景',
+          categoryTitle: context.categoryTitle || '',
+          categoryPrompt: context.categoryPrompt || '',
           personaName: context.personaName || '客户',
           personaDescription: context.personaDescription || '',
           passScore,

@@ -15,7 +15,7 @@ export function setupPracticeGateway(server: Server) {
     try { user = jwt.verify(token, config.jwtSecret); } catch { socket.close(4001, 'Unauthorized'); return; }
     const session = await prisma.practiceSession.findFirst({
       where: { id: sessionId, tenantId: user.tenantId },
-      include: { scenario: { include: { persona: true, rubric: true } } }
+      include: { scenario: { include: { persona: true, rubric: true } }, category: true }
     });
     if (!session) { socket.close(4004, 'Session not found'); return; }
     await prisma.practiceSession.update({ where: { id: sessionId }, data: { status: 'RUNNING', startedAt: session.startedAt || new Date() } });
@@ -32,6 +32,8 @@ export function setupPracticeGateway(server: Server) {
           messages.map(m => ({ speaker: m.speaker, content: m.content })),
           {
             scenarioTitle: session.scenario.title,
+            categoryTitle: session.category?.title,
+            categoryPrompt: session.category?.prompt || session.category?.description || undefined,
             personaName: session.scenario.persona?.name,
             personaDescription: session.scenario.persona?.description || undefined,
             rubricDimensionsJson: session.scenario.rubric?.dimensions

@@ -1,1 +1,24 @@
-<view class="container"><view class="card"><view class="title">今日训练</view><view class="muted">{{user.name}}，继续完成你的销售通关任务</view><button class="btn" bindtap="goScenarios">开始练习</button></view><view class="card"><view class="title">推荐场景</view><block wx:for="{{scenarios}}" wx:key="id"><view bindtap="openScenario" data-id="{{item.id}}" style="padding:20rpx 0;border-bottom:1px solid #eee"><view>{{item.title}}</view><view class="muted">{{item.industry}} · {{item.estMinutes}}分钟</view></view></block></view></view>
+<view class="knowledge-page">
+  <view class="home-header">
+    <view class="home-title">知识卡片</view>
+    <button class="coach-btn" bindtap="goScenarios">去陪练</button>
+  </view>
+
+  <block wx:for="{{cards}}" wx:key="id">
+    <view class="knowledge-card">
+      <view class="card-title">{{item.title}}</view>
+      <view class="card-summary">{{item.summary}}</view>
+      <view class="card-content">{{item.content}}</view>
+      <view class="tag-row">
+        <block wx:for="{{item.tags}}" wx:key="*this">
+          <text class="tag">{{item}}</text>
+        </block>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{!cards.length}}" class="empty-card">
+    <view class="card-title">暂无知识卡片</view>
+    <view class="card-summary">请在后台【知识卡片】中新增发布内容。</view>
+  </view>
+</view>

@@ -12,6 +12,7 @@ import { practiceRouter } from './routes/practice';
 import { adminRouter } from './routes/admin';
 import { assignmentsRouter } from './routes/assignments';
 import { leaderboardsRouter } from './routes/leaderboards';
+import { knowledgeRouter } from './routes/knowledge';
 import { setupPracticeGateway } from './ws/practiceGateway';
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/v1/practice-sessions', practiceRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/assignments', assignmentsRouter);
 app.use('/api/v1/leaderboards', leaderboardsRouter);
+app.use('/api/v1/knowledge-cards', knowledgeRouter);
 
 const server = http.createServer(app);
 setupPracticeGateway(server);

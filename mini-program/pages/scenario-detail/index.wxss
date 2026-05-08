@@ -8,6 +8,34 @@ page {
   box-sizing: border-box;
 }
 
+.custom-nav {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 28rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  box-sizing: border-box;
+}
+
+.back-btn {
+  width: 56rpx;
+  height: 56rpx;
+  line-height: 50rpx;
+  color: #111;
+  font-size: 56rpx;
+}
+
+.nav-name {
+  flex: 1;
+  text-align: center;
+  padding-right: 56rpx;
+  color: #111;
+  font-size: 30rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .top-line {
   height: 88rpx;
   padding: 0 28rpx;
@@ -109,6 +137,14 @@ page {
   font-size: 30rpx;
   color: #333;
   font-weight: 800;
+  margin-bottom: 24rpx;
+}
+
+.category-desc,
+.empty-tip {
+  color: #666;
+  font-size: 26rpx;
+  line-height: 1.55;
   margin-bottom: 24rpx;
 }
 

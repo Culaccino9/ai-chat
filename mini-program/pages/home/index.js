@@ -1,2 +1,25 @@
 const { request } = require('../../utils/request');
-Page({ data:{ user:{}, scenarios:[] }, onShow(){ const app=getApp(); if(!app.globalData.token){wx.redirectTo({url:'/pages/login/index'});return;} this.setData({user: app.globalData.user||{}}); request('/scenarios').then(scenarios=>this.setData({scenarios:scenarios.slice(0,3)})); }, goScenarios(){wx.switchTab({url:'/pages/scenarios/index'})}, openScenario(e){wx.navigateTo({url:'/pages/scenario-detail/index?id='+e.currentTarget.dataset.id})} });
+
+Page({
+  data: { user: {}, cards: [] },
+
+  onShow() {
+    const app = getApp();
+    if (!app.globalData.token) {
+      wx.redirectTo({ url: '/pages/login/index' });
+      return;
+    }
+    this.setData({ user: app.globalData.user || {} });
+    request('/knowledge-cards')
+      .then(cards => this.setData({ cards }))
+      .catch(() => this.setData({ cards: [] }));
+  },
+
+  openCard(e) {
+    wx.navigateTo({ url: '/pages/home/index?id=' + e.currentTarget.dataset.id });
+  },
+
+  goScenarios() {
+    wx.switchTab({ url: '/pages/scenarios/index' });
+  }
+});

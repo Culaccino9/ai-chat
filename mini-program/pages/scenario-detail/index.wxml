@@ -1,17 +1,22 @@
 <view class="detail-page">
-  <view class="top-line">
-    <view class="history">☰ 历史会话</view>
-    <view class="new-chat" bindtap="newChat" wx:if="{{activeTopic}}">⊕ 新会话</view>
+  <view class="custom-nav">
+    <view class="back-btn" bindtap="goBack">‹</view>
+    <view class="nav-name">{{title}}</view>
   </view>
 
-  <view wx:if="{{!activeTopic}}" class="topic-home">
+  <view class="top-line">
+    <view class="history">☰ 历史会话</view>
+    <view class="new-chat" bindtap="newChat" wx:if="{{activeCategory}}">⊕ 新会话</view>
+  </view>
+
+  <view wx:if="{{!activeCategory}}" class="topic-home">
     <view class="intro-title">Hi，我是销售话术练习小助手</view>
     <view class="intro-subtitle">我可以帮助你做以下事情：</view>
 
-    <block wx:for="{{topics}}" wx:key="key">
-      <view class="topic-card" bindtap="selectTopic" data-key="{{item.key}}">
+    <block wx:for="{{categories}}" wx:key="id">
+      <view class="topic-card" bindtap="selectCategory" data-id="{{item.id}}">
         <view class="topic-left">
-          <text class="topic-icon">{{item.icon}}</text>
+          <text class="topic-icon">▤</text>
           <text>{{item.title}}</text>
         </view>
         <view class="topic-arrow">›</view>
@@ -21,18 +26,20 @@
 
   <scroll-view wx:else scroll-y class="script-scroll">
     <view class="active-topic">
-      <text class="active-icon">{{activeTopic.icon}}</text>
-      <text>{{activeTopic.title}}</text>
+      <text class="active-icon">▤</text>
+      <text>{{activeCategory.title}}</text>
     </view>
 
+    <view class="category-desc">{{activeCategory.description}}</view>
     <view class="script-title">您可以试着说说这些内容：</view>
-    <block wx:for="{{activeTopic.sections}}" wx:key="title">
+    <block wx:for="{{activeCategory.scripts}}" wx:key="title">
       <view class="script-section">
         <view class="section-title">{{item.title}}</view>
         <view class="section-tips">{{item.tips}}</view>
         <view class="section-script">{{item.script}}</view>
       </view>
     </block>
+    <view wx:if="{{!activeCategory.scripts.length}}" class="empty-tip">后台暂未配置示例话术，您可以直接输入自己的话术开始练习。</view>
   </scroll-view>
 
   <view class="text-dock">

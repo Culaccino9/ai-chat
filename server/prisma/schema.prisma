@@ -47,6 +47,8 @@ model Tenant {
   createdAt DateTime @default(now())
   users     User[]
   scenarios Scenario[]
+  practiceCategories PracticeCategory[]
+  knowledgeCards KnowledgeCard[]
   personas  Persona[]
   rubrics   Rubric[]
 }
@@ -112,7 +114,39 @@ model Scenario {
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   sessions    PracticeSession[]
+  categories  PracticeCategory[]
   assignments AssignmentScenario[]
+}
+
+model PracticeCategory {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  scenarioId  String
+  scenario    Scenario @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  prompt      String
+  sortOrder   Int      @default(0)
+  status      String   @default("PUBLISHED")
+  scripts     String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sessions    PracticeSession[]
+}
+
+model KnowledgeCard {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  title     String
+  summary   String
+  content   String
+  tags      String   @default("[]")
+  status    String   @default("PUBLISHED")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Assignment {
@@ -151,6 +185,8 @@ model PracticeSession {
   user        User          @relation(fields: [userId], references: [id])
   scenarioId  String
   scenario    Scenario      @relation(fields: [scenarioId], references: [id])
+  categoryId  String?
+  category    PracticeCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   mode        PracticeMode
   language    String        @default("zh-CN")
   status      SessionStatus @default(CREATED)
