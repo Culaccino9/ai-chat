@@ -1,0 +1,1 @@
+<view class="container"><view class="title">排行榜</view><block wx:for="{{items}}" wx:key="rank"><view class="card"><view>#{{item.rank}} {{item.userName}}</view><view class="muted">{{item.scenarioTitle}} · {{item.score}}分</view></view></block></view>

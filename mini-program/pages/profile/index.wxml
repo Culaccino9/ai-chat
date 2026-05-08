@@ -1,0 +1,1 @@
+<view class="container"><view class="card"><view class="title">我的</view><view>{{user.name}}</view><view class="muted">{{user.email}}</view><button bindtap="logout">退出登录</button></view></view>

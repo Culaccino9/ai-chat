@@ -1,0 +1,7 @@
+body { margin: 0; background: #f5f6fa; }
+.logo { height: 56px; color: white; display: flex; align-items: center; padding-left: 24px; font-weight: 700; font-size: 18px; }
+.header { background: #fff; display: flex; justify-content: flex-end; align-items: center; padding: 0 24px; }
+.content { padding: 24px; }
+.card-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+.login-page { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#eef2ff,#f8fafc); }
+.login-card { width: 380px; }

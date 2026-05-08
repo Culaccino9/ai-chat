@@ -1,0 +1,39 @@
+{
+  "name": "ai-coach-server",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.3",
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "helmet": "latest",
+    "jsonwebtoken": "latest",
+    "morgan": "latest",
+    "nanoid": "latest",
+    "prisma": "^6.16.3",
+    "ws": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "latest",
+    "@types/cors": "latest",
+    "@types/express": "latest",
+    "@types/jsonwebtoken": "latest",
+    "@types/morgan": "latest",
+    "@types/node": "latest",
+    "@types/ws": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

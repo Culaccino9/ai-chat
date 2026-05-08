@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  server:
+    build: ../server
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "file:./dev.db"
+      JWT_SECRET: "replace-with-a-strong-secret"
+      PORT: 3000
+  admin-web:
+    build: ../admin-web
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: "http://localhost:3000/api/v1"

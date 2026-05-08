@@ -1,0 +1,1 @@
+<view class="container"><view class="card"><view class="title">AI 陪练登录</view><input placeholder="邮箱" value="{{email}}" bindinput="onEmail" /><input placeholder="密码" password value="{{password}}" bindinput="onPassword" /><button class="btn" bindtap="login">登录</button></view></view>

@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  TENANT_ADMIN
+  LEARNING_ADMIN
+  TEAM_MANAGER
+  LEARNER
+}
+
+enum ScenarioStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PracticeMode {
+  FREE_DIALOGUE
+  FIXED_DIALOGUE
+  PPT_SPEECH
+  PRODUCT_3D
+  SCRIPT_RECITAL
+}
+
+enum SessionStatus {
+  CREATED
+  RUNNING
+  FINISHED
+  EVALUATING
+  COMPLETED
+  FAILED
+  ABORTED
+}
+
+model Tenant {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  name      String
+  settings  String   @default("{}")
+  createdAt DateTime @default(now())
+  users     User[]
+  scenarios Scenario[]
+  personas  Persona[]
+  rubrics   Rubric[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  tenantId     String
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         UserRole @default(LEARNER)
+  orgUnit      String?  @default("默认团队")
+  locale       String   @default("zh-CN")
+  createdAt    DateTime @default(now())
+  sessions     PracticeSession[]
+  assignments  AssignmentUser[]
+}
+
+model Persona {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  name      String
+  style     String
+  goal      String
+  prompt    String
+  tags      String   @default("[]")
+  createdAt DateTime @default(now())
+  scenarios Scenario[]
+}
+
+model Rubric {
+  id         String   @id @default(cuid())
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  name       String
+  dimensions String
+  passScore  Int      @default(70)
+  createdAt  DateTime @default(now())
+  scenarios  Scenario[]
+}
+
+model Scenario {
+  id          String         @id @default(cuid())
+  tenantId    String
+  tenant      Tenant         @relation(fields: [tenantId], references: [id])
+  title       String
+  industry    String
+  jobFamily   String
+  description String
+  difficulty  Int            @default(3)
+  estMinutes  Int            @default(10)
+  modes       String
+  languages   String
+  status      ScenarioStatus @default(DRAFT)
+  personaId   String?
+  persona     Persona?       @relation(fields: [personaId], references: [id])
+  rubricId    String?
+  rubric      Rubric?        @relation(fields: [rubricId], references: [id])
+  knowledge   String         @default("[]")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  sessions    PracticeSession[]
+  assignments AssignmentScenario[]
+}
+
+model Assignment {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  dueAt       DateTime?
+  passScore   Int      @default(70)
+  status      String   @default("DRAFT")
+  createdAt   DateTime @default(now())
+  users       AssignmentUser[]
+  scenarios   AssignmentScenario[]
+}
+
+model AssignmentUser {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  status       String     @default("PENDING")
+}
+
+model AssignmentScenario {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  scenarioId   String
+  scenario     Scenario   @relation(fields: [scenarioId], references: [id])
+}
+
+model PracticeSession {
+  id          String        @id @default(cuid())
+  tenantId    String
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  scenarioId  String
+  scenario    Scenario      @relation(fields: [scenarioId], references: [id])
+  mode        PracticeMode
+  language    String        @default("zh-CN")
+  status      SessionStatus @default(CREATED)
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  createdAt   DateTime      @default(now())
+  messages    PracticeMessage[]
+  report      SessionReport?
+}
+
+model PracticeMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  session   PracticeSession @relation(fields: [sessionId], references: [id])
+  seq       Int
+  speaker   String
+  type      String   @default("text")
+  content   String
+  meta      String   @default("{}")
+  createdAt DateTime @default(now())
+}
+
+model SessionReport {
+  id              String   @id @default(cuid())
+  sessionId       String   @unique
+  session         PracticeSession @relation(fields: [sessionId], references: [id])
+  overallScore    Int
+  pass            Boolean
+  dimensionScores String
+  sentenceReviews String
+  bestScripts     String
+  recommendations String
+  summary         String
+  createdAt       DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  tenantId  String
+  actorId   String?
+  action    String
+  resource  String
+  resourceId String?
+  detail    String   @default("{}")
+  createdAt DateTime @default(now())
+}

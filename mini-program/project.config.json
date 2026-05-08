@@ -1,0 +1,25 @@
+{
+  "appid": "wx28640a413a3dd4b8",
+  "projectname": "ai-coach-mini-program",
+  "miniprogramRoot": "",
+  "compileType": "miniprogram",
+  "setting": {
+    "es6": true,
+    "urlCheck": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "libVersion": "3.15.2",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

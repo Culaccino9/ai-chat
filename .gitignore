@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+.env
+.env.local
+dist
+build
+coverage
+*.log
+server/prisma/dev.db
+server/prisma/dev.db-journal
+mini-program/miniprogram_npm

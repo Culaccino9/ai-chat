@@ -1,0 +1,2 @@
+const { request } = require('../../utils/request');
+Page({ data:{ user:{}, scenarios:[] }, onShow(){ const app=getApp(); if(!app.globalData.token){wx.redirectTo({url:'/pages/login/index'});return;} this.setData({user: app.globalData.user||{}}); request('/scenarios').then(scenarios=>this.setData({scenarios:scenarios.slice(0,3)})); }, goScenarios(){wx.switchTab({url:'/pages/scenarios/index'})}, openScenario(e){wx.navigateTo({url:'/pages/scenario-detail/index?id='+e.currentTarget.dataset.id})} });

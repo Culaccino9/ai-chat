@@ -1,0 +1,2 @@
+const { request } = require('../../utils/request');
+Page({ data:{id:'', item:{}, dimensions:[]}, onLoad(q){this.setData({id:q.id}); request('/scenarios/'+q.id).then(item=>this.setData({item, dimensions:item.rubric?.dimensions||[]}));}, async start(){const data=await request('/practice-sessions',{method:'POST', data:{scenarioId:this.data.id, mode:'FREE_DIALOGUE', language:'zh-CN'}}); wx.navigateTo({url:'/pages/practice/index?sessionId='+data.sessionId});} });
