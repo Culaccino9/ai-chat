@@ -67,16 +67,17 @@ model User {
 }
 
 model Persona {
-  id        String   @id @default(cuid())
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  name      String
-  style     String
-  goal      String
-  prompt    String
-  tags      String   @default("[]")
-  createdAt DateTime @default(now())
-  scenarios Scenario[]
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  name        String
+  style       String
+  goal        String
+  prompt      String
+  description String?
+  tags        String   @default("[]")
+  createdAt   DateTime @default(now())
+  scenarios   Scenario[]
 }
 
 model Rubric {
@@ -169,6 +170,7 @@ model PracticeMessage {
   type      String   @default("text")
   content   String
   meta      String   @default("{}")
+  metaJson  String   @default("{}")
   createdAt DateTime @default(now())
 }
 
